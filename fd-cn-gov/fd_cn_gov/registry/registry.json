@@ -1,0 +1,2296 @@
+{
+  "datasource_columns": [
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 1,
+      "description": "archive section: 公示公告 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:section",
+      "table_name": "mee_gsgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 1,
+      "description": "document title (from <a> link text — MEE items carry no title attr)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a:text",
+      "table_name": "mee_gsgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 1,
+      "description": "publish date YYYY-MM-DD (span date after link; URL t<YYYYMMDD>_ token fallback)",
+      "is_nullable": 1,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "span",
+      "table_name": "mee_gsgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 1,
+      "description": "absolute document URL (.shtml)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "mee_gsgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 1,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "mee_gsgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 2,
+      "description": "archive section: 通知公告 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:section",
+      "table_name": "mem_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 2,
+      "description": "document title (link text before the inner <span> date)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a:text-before-span",
+      "table_name": "mem_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 2,
+      "description": "publish date YYYY-MM-DD (inner span; URL t<YYYYMMDD>_ token fallback)",
+      "is_nullable": 1,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "a span",
+      "table_name": "mem_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 2,
+      "description": "absolute document URL (.shtml)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "mem_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 2,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "mem_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 3,
+      "description": "archive section: 通知公告 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:section",
+      "table_name": "mnr_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 3,
+      "description": "document title (from <a> link text — MNR items carry no title attr)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a:text",
+      "table_name": "mnr_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 3,
+      "description": "publish date YYYY-MM-DD (span date before link; URL t<YYYYMMDD>_ token fallback)",
+      "is_nullable": 1,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "span",
+      "table_name": "mnr_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 3,
+      "description": "absolute document URL on gi.mnr.gov.cn (.html)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "mnr_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 3,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "mnr_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "department",
+      "column_type": "string",
+      "datasource_id": 4,
+      "description": "department / category name (e.g. 办公厅, 法规司)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "hub:CAT_RE",
+      "table_name": "moa_govpublic_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "department_id",
+      "column_type": "string",
+      "datasource_id": 4,
+      "description": "numeric id used in the category path /1/2/<id>/",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "identifier",
+      "source_field": "hub:CAT_RE",
+      "table_name": "moa_govpublic_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 4,
+      "description": "document title (from <a title=...>)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a@title",
+      "table_name": "moa_govpublic_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 4,
+      "description": "publish date YYYY-MM-DD (URL t<date> token, span fallback)",
+      "is_nullable": 1,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "url:re:t(\\d{8})_",
+      "table_name": "moa_govpublic_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 4,
+      "description": "absolute document URL (.htm)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "moa_govpublic_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 5,
+      "description": "top-level gkml section: 通知公告/财政数据/财政文告/财经论坛 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:section",
+      "table_name": "mof_gkml_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "subsection",
+      "column_type": "string",
+      "datasource_id": 5,
+      "description": "sub-archive name, e.g. 通知通告, 财政部令, 财政部公告, 财政数据 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:subsection",
+      "table_name": "mof_gkml_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 5,
+      "description": "document title (from <a title=\"...\"> attribute, visible text fallback)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a@title",
+      "table_name": "mof_gkml_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 5,
+      "description": "publish date YYYY-MM-DD (URL t<YYYYMMDD>_ token; sibling <span> fallback)",
+      "is_nullable": 1,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "url:re:t(\\d{8})_",
+      "table_name": "mof_gkml_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 5,
+      "description": "absolute document URL (.htm/.html/.pdf)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "mof_gkml_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 5,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "mof_gkml_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 6,
+      "description": "news section: 领导人活动/日常新闻发布/例行新闻发布会/... (from <h4 class='sTitle_02'>)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "h4.sTitle_02",
+      "table_name": "mofcom_xwfb_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 6,
+      "description": "document title (from <a title=\"...\"> attribute)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a@title",
+      "table_name": "mofcom_xwfb_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 6,
+      "description": "publish date YYYY-MM-DD (from <span>[YYYY-MM-DD]</span>)",
+      "is_nullable": 1,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "span",
+      "table_name": "mofcom_xwfb_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 6,
+      "description": "absolute document URL (.html/.shtml)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "mofcom_xwfb_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 6,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "mofcom_xwfb_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 7,
+      "description": "news section: 部门动态/工作动态/地方信息 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:section",
+      "table_name": "mohurd_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 7,
+      "description": "document title (from <a title=\"...\"> attribute)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a@title",
+      "table_name": "mohurd_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 7,
+      "description": "publish date YYYY-MM-DD (from <span class=\"date-info\">)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "span.date-info",
+      "table_name": "mohurd_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 7,
+      "description": "absolute document URL (.html/.pdf)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "mohurd_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 7,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "mohurd_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 8,
+      "description": "top-level data section: 数据开放/统计数据/分析公报/运价指数 (from seed config, not DOM)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:section",
+      "table_name": "mot_shuju_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "subsection",
+      "column_type": "string",
+      "datasource_id": 8,
+      "description": "specific sub-archive / tab name, e.g. 公路水路运输, 行业公报, 中国沿海散货运价指数 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:subsection",
+      "table_name": "mot_shuju_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 8,
+      "description": "document title (from <span class=\"news-title\">)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "span.news-title",
+      "table_name": "mot_shuju_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 8,
+      "description": "publish date YYYY-MM-DD (from <span class=\"news-date\">)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "span.news-date",
+      "table_name": "mot_shuju_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 8,
+      "description": "absolute document URL (.html report or .pdf)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a.news-link@href",
+      "table_name": "mot_shuju_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 8,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "mot_shuju_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 9,
+      "description": "archive section: 通知公告 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:section",
+      "table_name": "ndrc_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 9,
+      "description": "document title (from <a title=\"...\"> attribute)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a@title",
+      "table_name": "ndrc_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 9,
+      "description": "publish date YYYY-MM-DD (URL t<YYYYMMDD>_ token; span fallback, slashes→dashes)",
+      "is_nullable": 1,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "url:re:t(\\d{8})_",
+      "table_name": "ndrc_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 9,
+      "description": "absolute document URL (.html)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "ndrc_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 9,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "ndrc_tzgg_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 10,
+      "description": "archive section: 新闻发布 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:section",
+      "table_name": "pbc_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 10,
+      "description": "document title (from <a title=\"...\"> attribute)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a@title",
+      "table_name": "pbc_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 10,
+      "description": "publish date YYYY-MM-DD (URL <YYYYMMDD> token; span.hui12 fallback)",
+      "is_nullable": 1,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "url:re:(\\d{8})\\d{6,}",
+      "table_name": "pbc_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 10,
+      "description": "absolute document URL (.html)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "pbc_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 10,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "pbc_xinwen_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "section",
+      "column_type": "string",
+      "datasource_id": 11,
+      "description": "archive section: 外汇新闻 (from seed config)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "meta:section",
+      "table_name": "safe_whxw_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "title",
+      "column_type": "string",
+      "datasource_id": 11,
+      "description": "document title (from <a title=\"...\"> attribute)",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "title",
+      "source_field": "a@title",
+      "table_name": "safe_whxw_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "date",
+      "column_type": "date",
+      "datasource_id": 11,
+      "description": "publish date YYYY-MM-DD (from <dd> display date; URL path /YYYY/MMDD/ fallback)",
+      "is_nullable": 1,
+      "is_primary_key": 0,
+      "semantic_type": "date",
+      "source_field": "dd",
+      "table_name": "safe_whxw_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "url",
+      "column_type": "string",
+      "datasource_id": 11,
+      "description": "absolute document URL (.html)",
+      "is_nullable": 0,
+      "is_primary_key": 1,
+      "semantic_type": "url",
+      "source_field": "a@href",
+      "table_name": "safe_whxw_archive",
+      "unit": ""
+    },
+    {
+      "column_name": "doc_type",
+      "column_type": "string",
+      "datasource_id": 11,
+      "description": "document format derived from URL extension: html or pdf",
+      "is_nullable": 0,
+      "is_primary_key": 0,
+      "semantic_type": "category",
+      "source_field": "url:ext",
+      "table_name": "safe_whxw_archive",
+      "unit": ""
+    }
+  ],
+  "scraw_configs": [
+    {
+      "columns_json": [
+        {
+          "description": "archive section: 公示公告 (from seed config)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <a> link text — MEE items carry no title attr)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (span date after link; URL t<YYYYMMDD>_ token fallback)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.shtml)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "mee_gsgg_archive",
+      "url": "https://www.mee.gov.cn/ywdt/gsgg/"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "archive section: 通知公告 (from seed config)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "document title (link text before the inner <span> date)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (inner span; URL t<YYYYMMDD>_ token fallback)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.shtml)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "mem_tzgg_archive",
+      "url": "https://www.mem.gov.cn/gk/tzgg/"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "archive section: 通知公告 (from seed config)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <a> link text — MNR items carry no title attr)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (span date before link; URL t<YYYYMMDD>_ token fallback)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL on gi.mnr.gov.cn (.html)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "mnr_tzgg_archive",
+      "url": "https://www.mnr.gov.cn/gk/tzgg/"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "department / category name (e.g. 办公厅, 法规司)",
+          "name": "department",
+          "type": "string"
+        },
+        {
+          "description": "numeric id used in the category path /1/2/<id>/",
+          "name": "department_id",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <a title=...>)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (URL t<date> token, span fallback)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.htm)",
+          "name": "url",
+          "type": "string"
+        }
+      ],
+      "name": "moa_govpublic_archive",
+      "url": "https://www.moa.gov.cn/govpublic/"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "top-level gkml section: 通知公告/财政数据/财政文告/财经论坛 (from seed config)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "sub-archive name, e.g. 通知通告, 财政部令, 财政部公告, 财政数据 (from seed config)",
+          "name": "subsection",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <a title=\"...\"> attribute, visible text fallback)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (URL t<YYYYMMDD>_ token; sibling <span> fallback)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.htm/.html/.pdf)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "mof_gkml_archive",
+      "url": "https://www.mof.gov.cn/gkml/"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "news section: 领导人活动/日常新闻发布/例行新闻发布会/... (from <h4 class='sTitle_02'>)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <a title=\"...\"> attribute)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (from <span>[YYYY-MM-DD]</span>)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.html/.shtml)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "mofcom_xwfb_archive",
+      "url": "https://www.mofcom.gov.cn/xwfb/index.html"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "news section: 部门动态/工作动态/地方信息 (from seed config)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <a title=\"...\"> attribute)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (from <span class=\"date-info\">)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.html/.pdf)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "mohurd_xinwen_archive",
+      "url": "https://www.mohurd.gov.cn/xinwen/"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "top-level data section: 数据开放/统计数据/分析公报/运价指数 (from seed config, not DOM)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "specific sub-archive / tab name, e.g. 公路水路运输, 行业公报, 中国沿海散货运价指数 (from seed config)",
+          "name": "subsection",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <span class=\"news-title\">)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (from <span class=\"news-date\">)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.html report or .pdf)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "mot_shuju_archive",
+      "url": "https://www.mot.gov.cn/shuju/index.html"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "archive section: 通知公告 (from seed config)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <a title=\"...\"> attribute)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (URL t<YYYYMMDD>_ token; span fallback, slashes→dashes)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.html)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "ndrc_tzgg_archive",
+      "url": "https://www.ndrc.gov.cn/xwdt/tzgg/"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "archive section: 新闻发布 (from seed config)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <a title=\"...\"> attribute)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (URL <YYYYMMDD> token; span.hui12 fallback)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.html)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "pbc_xinwen_archive",
+      "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/index.html"
+    },
+    {
+      "columns_json": [
+        {
+          "description": "archive section: 外汇新闻 (from seed config)",
+          "name": "section",
+          "type": "string"
+        },
+        {
+          "description": "document title (from <a title=\"...\"> attribute)",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "description": "publish date YYYY-MM-DD (from <dd> display date; URL path /YYYY/MMDD/ fallback)",
+          "name": "date",
+          "type": "date"
+        },
+        {
+          "description": "absolute document URL (.html)",
+          "name": "url",
+          "type": "string"
+        },
+        {
+          "description": "document format derived from URL extension: html or pdf",
+          "name": "doc_type",
+          "type": "string"
+        }
+      ],
+      "name": "safe_whxw_archive",
+      "url": "https://www.safe.gov.cn/safe/whxw/index.html"
+    }
+  ],
+  "sources": [
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "公示公告",
+            "subsection": "公示公告",
+            "url": "https://www.mee.gov.cn/ywdt/gsgg/"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "archive section: 公示公告 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:section",
+            "table_name": "mee_gsgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <a> link text — MEE items carry no title attr)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a:text",
+            "table_name": "mee_gsgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (span date after link; URL t<YYYYMMDD>_ token fallback)",
+            "is_nullable": 1,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "span",
+            "table_name": "mee_gsgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.shtml)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "mee_gsgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "mee_gsgg_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": true,
+          "default_max_pages": 50,
+          "fields": {
+            "date": "span + url:re:t(\\d{8})_",
+            "title": "a:text",
+            "url": "a@href"
+          },
+          "item_selector": "ul li (a.ll_xxgk_gsq_list_a + span)",
+          "pagination": "TRS createPageHTML: /ywdt/gsgg/ (page 1) → index_{N-1}.html (page N), 404 on overflow",
+          "per_page": 25,
+          "scope": "公示公告 feed at /ywdt/gsgg/"
+        },
+        "seed_url": "https://www.mee.gov.cn/ywdt/gsgg/",
+        "type": "scraw"
+      },
+      "description": "Catalog crawl of the Ministry of Ecology & Environment (生态环境部) 公示公告 archive at /ywdt/gsgg/. Each record is one listed document (.shtml) with section, title (link text — MEE items carry no title attr), date (span date; URL t<YYYYMMDD>_ token fallback), url, doc_type. Paginates the TRS createPageHTML convention: /ywdt/gsgg/ (page 1) → index_{N-1}.html (404 on overflow). Default crawl = 50 pages; --all for full history.",
+      "id": 1,
+      "label": "MEE Notice Archive (生态环境部公示公告)",
+      "name": "mee_gsgg_archive",
+      "url": "https://www.mee.gov.cn/ywdt/gsgg/"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "通知公告",
+            "subsection": "通知公告",
+            "url": "https://www.mem.gov.cn/gk/tzgg/"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "archive section: 通知公告 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:section",
+            "table_name": "mem_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (link text before the inner <span> date)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a:text-before-span",
+            "table_name": "mem_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (inner span; URL t<YYYYMMDD>_ token fallback)",
+            "is_nullable": 1,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "a span",
+            "table_name": "mem_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.shtml)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "mem_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "mem_tzgg_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": true,
+          "default_max_pages": 50,
+          "fields": {
+            "date": "a span",
+            "title": "a:text-before-span",
+            "url": "a@href"
+          },
+          "item_selector": "ul li > a (href + text + inner span date)",
+          "pagination": "offset-by-1 .shtml: /gk/tzgg/ (page 1) → index_{N-1}.shtml (page N), 404 on overflow",
+          "per_page": 47,
+          "scope": "通知公告 feed at /gk/tzgg/"
+        },
+        "seed_url": "https://www.mem.gov.cn/gk/tzgg/",
+        "type": "scraw"
+      },
+      "description": "Catalog crawl of the Ministry of Emergency Management (应急管理部) 通知公告 archive at /gk/tzgg/ (~1183 docs / 25 pages). Each record is one listed document (.shtml) with section, title (link text before the inner span), date (inner span; URL t<YYYYMMDD>_ token fallback), url, doc_type. Paginates offset-by-1 .shtml: /gk/tzgg/ (page 1) → index_{N-1}.shtml (404 on overflow). Default crawl = 50 pages; --all for full history.",
+      "id": 2,
+      "label": "MEM Notice Archive (应急管理部通知公告)",
+      "name": "mem_tzgg_archive",
+      "url": "https://www.mem.gov.cn/gk/tzgg/"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "通知公告",
+            "subsection": "通知公告",
+            "url": "https://www.mnr.gov.cn/gk/tzgg/"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "archive section: 通知公告 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:section",
+            "table_name": "mnr_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <a> link text — MNR items carry no title attr)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a:text",
+            "table_name": "mnr_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (span date before link; URL t<YYYYMMDD>_ token fallback)",
+            "is_nullable": 1,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "span",
+            "table_name": "mnr_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL on gi.mnr.gov.cn (.html)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "mnr_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "mnr_tzgg_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": true,
+          "default_max_pages": 50,
+          "fields": {
+            "date": "span (before link)",
+            "title": "a:text",
+            "url": "a@href"
+          },
+          "item_selector": "ul.ky_open_list > li",
+          "pagination": "TRS createPageHTML(40): index.html (page 1) → index_{N-1}.html (page N), 404 on overflow",
+          "per_page": 25,
+          "scope": "通知公告 feed at /gk/tzgg/ (docs on gi.mnr.gov.cn)"
+        },
+        "seed_url": "https://www.mnr.gov.cn/gk/tzgg/",
+        "type": "scraw"
+      },
+      "description": "Catalog crawl of the Ministry of Natural Resources (自然资源部) 通知公告 archive at /gk/tzgg/. Each record is one listed document (doc URLs on the gi.mnr.gov.cn 公开目录 subdomain) with section, title (link text), date (span date; URL t<YYYYMMDD>_ token fallback), url, doc_type. Paginates the TRS createPageHTML(40) convention: index.html → index_{N-1}.html (404 on overflow), 25 docs/page. Default crawl = 50 pages; --all for full history.",
+      "id": 3,
+      "label": "MNR Notice Archive (自然资源部通知公告)",
+      "name": "mnr_tzgg_archive",
+      "url": "https://www.mnr.gov.cn/gk/tzgg/"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "department",
+            "column_type": "string",
+            "description": "department / category name (e.g. 办公厅, 法规司)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "hub:CAT_RE",
+            "table_name": "moa_govpublic_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "department_id",
+            "column_type": "string",
+            "description": "numeric id used in the category path /1/2/<id>/",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "identifier",
+            "source_field": "hub:CAT_RE",
+            "table_name": "moa_govpublic_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <a title=...>)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a@title",
+            "table_name": "moa_govpublic_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (URL t<date> token, span fallback)",
+            "is_nullable": 1,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "url:re:t(\\d{8})_",
+            "table_name": "moa_govpublic_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.htm)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "moa_govpublic_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "category_selector": "href=\"./1/2/<id>/index.htm?id=<id>\"",
+          "date_source": "URL token t<YYYYMMDD>_ (authoritative), span fallback",
+          "default_max_pages": 0,
+          "item_selector": "<a title=\"...\" href=\"*.htm\">",
+          "pagination": "/govpublic/1/2/<id>/index.htm → index_{N}.htm (404 on overflow)",
+          "per_page": 16,
+          "scope": "all 24 department categories under /govpublic/, full pagination"
+        },
+        "seed_url": "https://www.moa.gov.cn/govpublic/",
+        "type": "scraw"
+      },
+      "description": "Full crawl of the Ministry of Agriculture (农业农村部) 机构分类 archive at /govpublic/, which the landing page (/gk/) only previews. 24 department categories each paginate /govpublic/1/2/<id>/index.htm → index_2.htm → … (16 docs/page, 404 on overflow). Emits one record per listed document with department, title, date (from URL t<date> token), and URL.",
+      "id": 4,
+      "label": "MOA GovPublic Archive (农业农村部 机构分类)",
+      "name": "moa_govpublic_archive",
+      "url": "https://www.moa.gov.cn/govpublic/"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "通知公告",
+            "subsection": "通知通告",
+            "url": "https://www.mof.gov.cn/gkml/bulinggonggao/tongzhitonggao/"
+          },
+          {
+            "section": "通知公告",
+            "subsection": "财政部令",
+            "url": "https://www.mof.gov.cn/gkml/bulinggonggao/czbl/"
+          },
+          {
+            "section": "通知公告",
+            "subsection": "财政部公告",
+            "url": "https://www.mof.gov.cn/gkml/bulinggonggao/czbgg/"
+          },
+          {
+            "section": "财政数据",
+            "subsection": "财政数据",
+            "url": "https://www.mof.gov.cn/gkml/caizhengshuju/"
+          },
+          {
+            "section": "财政文告",
+            "subsection": "财政文告",
+            "url": "https://www.mof.gov.cn/gkml/caizhengwengao/"
+          },
+          {
+            "section": "财经论坛",
+            "subsection": "财经论坛",
+            "url": "https://www.mof.gov.cn/gkml/diaochayanjiu/"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "top-level gkml section: 通知公告/财政数据/财政文告/财经论坛 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:section",
+            "table_name": "mof_gkml_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "subsection",
+            "column_type": "string",
+            "description": "sub-archive name, e.g. 通知通告, 财政部令, 财政部公告, 财政数据 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:subsection",
+            "table_name": "mof_gkml_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <a title=\"...\"> attribute, visible text fallback)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a@title",
+            "table_name": "mof_gkml_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (URL t<YYYYMMDD>_ token; sibling <span> fallback)",
+            "is_nullable": 1,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "url:re:t(\\d{8})_",
+            "table_name": "mof_gkml_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.htm/.html/.pdf)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "mof_gkml_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "mof_gkml_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": true,
+          "default_max_pages": 50,
+          "fields": {
+            "date": "url:re:t(\\d{8})_ + span fallback",
+            "title": "a@title",
+            "url": "a@href"
+          },
+          "item_selector": "ul.xwbd_lianbolistfrcon > li, ul.xwfb_listbox > li",
+          "pagination": "index.htm (page 1) → index_{N-1}.htm (page N), 404 on overflow",
+          "scope": "4 sections / 6 sub-archives under /gkml/"
+        },
+        "seed_url": "https://www.mof.gov.cn/gkml/",
+        "type": "scraw"
+      },
+      "description": "Catalog crawl of the Ministry of Finance (财政部) /gkml/ 信息公开 archive across 4 sections / 6 sub-archives (通知公告×3, 财政数据, 财政文告, 财经论坛). Each archive paginates index.htm → index_1.htm → index_2.htm … (404 on overflow). One record per listed document with section, subsection, title, date (URL t<YYYYMMDD>_ token, span fallback), url, and doc_type. Default crawl = 50 pages per archive; --all for full history.",
+      "id": 5,
+      "label": "MOF gkml Archive (财政部信息公开)",
+      "name": "mof_gkml_archive",
+      "url": "https://www.mof.gov.cn/gkml/"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "新闻发布",
+            "subsection": "landing",
+            "url": "https://www.mofcom.gov.cn/xwfb/index.html"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "news section: 领导人活动/日常新闻发布/例行新闻发布会/... (from <h4 class='sTitle_02'>)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "h4.sTitle_02",
+            "table_name": "mofcom_xwfb_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <a title=\"...\"> attribute)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a@title",
+            "table_name": "mofcom_xwfb_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (from <span>[YYYY-MM-DD]</span>)",
+            "is_nullable": 1,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "span",
+            "table_name": "mofcom_xwfb_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.html/.shtml)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "mofcom_xwfb_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "mofcom_xwfb_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": false,
+          "coverage_note": "PREVIEW scope (~42 latest docs), not full archive",
+          "default_max_pages": 1,
+          "fields": {
+            "date": "span [YYYY-MM-DD]",
+            "title": "a@title",
+            "url": "a@href"
+          },
+          "item_selector": "div[ergodic=view] h4.sTitle_02 + ul li",
+          "pagination": "none — landing preview only; deep per-section archives are JS-rendered",
+          "scope": "新闻发布 landing at /xwfb/index.html (7 sections, ~6 items each = ~42 docs)"
+        },
+        "seed_url": "https://www.mofcom.gov.cn/xwfb/index.html",
+        "type": "scraw"
+      },
+      "description": "Catalog crawl of the Ministry of Commerce (商务部) 新闻发布 landing at /xwfb/index.html. 7 sections (领导人活动, 部领导活动, 日常新闻发布, 新闻发言人谈话, 司局负责人发布, 例行新闻发布会, 专题发布), each previewing ~6 most-recent items. SCOPE: landing PREVIEW only (~42 docs) — MOFCOM's deep per-section archives are JS-rendered with no static pagination path. Each record has section, title, date (from [YYYY-MM-DD] span), url, doc_type.",
+      "id": 6,
+      "label": "MOFCOM News Preview (商务部新闻发布)",
+      "name": "mofcom_xwfb_archive",
+      "url": "https://www.mofcom.gov.cn/xwfb/index.html"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "部门动态",
+            "subsection": "jsyw",
+            "url": "https://www.mohurd.gov.cn/xinwen/jsyw/"
+          },
+          {
+            "section": "工作动态",
+            "subsection": "gzdt",
+            "url": "https://www.mohurd.gov.cn/xinwen/gzdt/"
+          },
+          {
+            "section": "地方信息",
+            "subsection": "dfxx",
+            "url": "https://www.mohurd.gov.cn/xinwen/dfxx/"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "news section: 部门动态/工作动态/地方信息 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:section",
+            "table_name": "mohurd_xinwen_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <a title=\"...\"> attribute)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a@title",
+            "table_name": "mohurd_xinwen_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (from <span class=\"date-info\">)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "span.date-info",
+            "table_name": "mohurd_xinwen_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.html/.pdf)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "mohurd_xinwen_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "mohurd_xinwen_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": true,
+          "api_endpoint": "https://www.mohurd.gov.cn/api-gateway/jpaas-publish-server/front/page/build/unit",
+          "default_max_pages": 50,
+          "fields": {
+            "date": "span.date-info",
+            "title": "a@title",
+            "url": "a@href"
+          },
+          "item_selector": "li.date > a.fl[title][href] + span.date-info (inside API-returned html)",
+          "pagination": "JSON API: /api-gateway/.../front/page/build/unit?pageId=<id>&paramJson={pageNo:N,pageSize:20} — empty page terminates",
+          "per_page": 20,
+          "scope": "3 sections under /xinwen/ (部门动态, 工作动态, 地方信息)"
+        },
+        "seed_url": "https://www.mohurd.gov.cn/xinwen/",
+        "type": "scraw"
+      },
+      "description": "Catalog crawl of the Ministry of Housing & Urban-Rural Development (住建部) /xinwen/ news archive across 3 sections (部门动态 jsyw, 工作动态 gzdt, 地方信息 dfxx). Unlike the static .htm archives, the list is rendered by a layui-laypage paginator hitting a JSON backend API (/api-gateway/.../front/page/build/unit) per page; the crawler calls that API directly with pageNo/pageSize. One record per listed document with section, title, date (from <span class='date-info'>), url, doc_type. Default crawl = 50 pages per section (~3000 most-recent docs); --all walks until the API returns an empty page.",
+      "id": 7,
+      "label": "MOHURD Xinwen Archive (住建部新闻动态)",
+      "name": "mohurd_xinwen_archive",
+      "url": "https://www.mohurd.gov.cn/xinwen/"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "数据开放",
+            "subsection": "数据开放",
+            "url": "https://www.mot.gov.cn/shuju/shujukaifang/index.html"
+          },
+          {
+            "section": "统计数据",
+            "subsection": "公路水路运输",
+            "url": "https://www.mot.gov.cn/shuju/tongjishuju/gonglushuilu/index.html"
+          },
+          {
+            "section": "统计数据",
+            "subsection": "铁路",
+            "url": "https://www.mot.gov.cn/shuju/tongjishuju/tielu/index.html"
+          },
+          {
+            "section": "统计数据",
+            "subsection": "民航",
+            "url": "https://www.mot.gov.cn/shuju/tongjishuju/minhang/index.html"
+          },
+          {
+            "section": "统计数据",
+            "subsection": "邮政",
+            "url": "https://www.mot.gov.cn/shuju/tongjishuju/youzheng/index.html"
+          },
+          {
+            "section": "统计数据",
+            "subsection": "城市客运",
+            "url": "https://www.mot.gov.cn/shuju/tongjishuju/chengshikeyun/index.html"
+          },
+          {
+            "section": "统计数据",
+            "subsection": "港口",
+            "url": "https://www.mot.gov.cn/shuju/tongjishuju/gangkoutuntuliang/index.html"
+          },
+          {
+            "section": "统计数据",
+            "subsection": "投资",
+            "url": "https://www.mot.gov.cn/shuju/tongjishuju/gudingzctz/index.html"
+          },
+          {
+            "section": "分析公报",
+            "subsection": "行业公报",
+            "url": "https://www.mot.gov.cn/shuju/fenxigongbao/hangyegongbao/index.html"
+          },
+          {
+            "section": "分析公报",
+            "subsection": "经济分析",
+            "url": "https://www.mot.gov.cn/shuju/fenxigongbao/jingjifenxi/index.html"
+          },
+          {
+            "section": "分析公报",
+            "subsection": "运力分析",
+            "url": "https://www.mot.gov.cn/shuju/fenxigongbao/yunlifenxi/index.html"
+          },
+          {
+            "section": "运价指数",
+            "subsection": "中国沿海散货运价指数",
+            "url": "https://www.mot.gov.cn/shuju/yunjiazhishu/yanhaisanhuoyjzs/index.html"
+          },
+          {
+            "section": "运价指数",
+            "subsection": "中国集装箱运价指数",
+            "url": "https://www.mot.gov.cn/shuju/yunjiazhishu/chukoujizhuangxiangyjzs/index.html"
+          },
+          {
+            "section": "运价指数",
+            "subsection": "长江航运指数分析",
+            "url": "https://www.mot.gov.cn/shuju/yunjiazhishu/cjhangyunzsfx/index.html"
+          },
+          {
+            "section": "运价指数",
+            "subsection": "珠江水运经济运行分析",
+            "url": "https://www.mot.gov.cn/shuju/yunjiazhishu/zjshuiyunjingjiyxfx/index.html"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "top-level data section: 数据开放/统计数据/分析公报/运价指数 (from seed config, not DOM)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:section",
+            "table_name": "mot_shuju_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "subsection",
+            "column_type": "string",
+            "description": "specific sub-archive / tab name, e.g. 公路水路运输, 行业公报, 中国沿海散货运价指数 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:subsection",
+            "table_name": "mot_shuju_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <span class=\"news-title\">)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "span.news-title",
+            "table_name": "mot_shuju_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (from <span class=\"news-date\">)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "span.news-date",
+            "table_name": "mot_shuju_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.html report or .pdf)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a.news-link@href",
+            "table_name": "mot_shuju_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "mot_shuju_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": true,
+          "default_max_pages": 1,
+          "fields": {
+            "date": "span.news-date",
+            "title": "span.news-title",
+            "url": "a.news-link@href"
+          },
+          "item_selector": "li.news-item",
+          "pagination": "index.html (page 1) → index_{N-1}.html (page N), 404 on overflow",
+          "per_page": 16,
+          "scope": "all 4 sections, 15 sub-archive index pages (数据开放 + 7 统计 + 3 分析公报 + 4 运价指数)"
+        },
+        "seed_url": "https://www.mot.gov.cn/shuju/index.html",
+        "type": "scraw"
+      },
+      "description": "Catalog of statistical / analysis / freight-index documents published by China's Ministry of Transport (交通运输部), crawled from the /shuju/ data hub. 4 sections (数据开放/统计数据/分析公报/运价指数) across 15 sub-archive index pages; each record is one listed document (HTML report or PDF) with title, publish date, URL, section and subsection. Paginates index.html→index_{N-1}.html (404 on overflow). Default crawl = page 1 of each archive (~270 docs); --all for full history.",
+      "id": 8,
+      "label": "MOT Data Hub Archive (交通运输部数据)",
+      "name": "mot_shuju_archive",
+      "url": "https://www.mot.gov.cn/shuju/index.html"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "通知公告",
+            "subsection": "通知公告",
+            "url": "https://www.ndrc.gov.cn/xwdt/tzgg/"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "archive section: 通知公告 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:section",
+            "table_name": "ndrc_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <a title=\"...\"> attribute)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a@title",
+            "table_name": "ndrc_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (URL t<YYYYMMDD>_ token; span fallback, slashes→dashes)",
+            "is_nullable": 1,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "url:re:t(\\d{8})_",
+            "table_name": "ndrc_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.html)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "ndrc_tzgg_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "ndrc_tzgg_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": true,
+          "default_max_pages": 50,
+          "fields": {
+            "date": "url:re:t(\\d{8})_ + span fallback",
+            "title": "a@title",
+            "url": "a@href"
+          },
+          "item_selector": "ul.u-list > li",
+          "pagination": "TRS createPageHTML: index.html (page 1) → index_{N-1}.html (page N), 404 on overflow",
+          "per_page": 20,
+          "scope": "通知公告 feed at /xwdt/tzgg/"
+        },
+        "seed_url": "https://www.ndrc.gov.cn/xwdt/tzgg/",
+        "type": "scraw"
+      },
+      "description": "Catalog crawl of the National Development & Reform Commission (国家发改委) 通知公告 archive at /xwdt/tzgg/ — NDRC's rolling notice stream (政策印发通知, 项复函, ~20 pages). Each record is one listed document with section, title, date (URL t<YYYYMMDD>_ token; span fallback), url, doc_type. Paginates the TRS createPageHTML convention: index.html → index_{N-1}.html (404 on overflow). Default crawl = 50 pages; --all for full history.",
+      "id": 9,
+      "label": "NDRC Notice Archive (发改委通知公告)",
+      "name": "ndrc_tzgg_archive",
+      "url": "https://www.ndrc.gov.cn/xwdt/tzgg/"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "新闻发布",
+            "subsection": "新闻发布",
+            "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/index.html"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "archive section: 新闻发布 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:section",
+            "table_name": "pbc_xinwen_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <a title=\"...\"> attribute)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a@title",
+            "table_name": "pbc_xinwen_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (URL <YYYYMMDD> token; span.hui12 fallback)",
+            "is_nullable": 1,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "url:re:(\\d{8})\\d{6,}",
+            "table_name": "pbc_xinwen_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.html)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "pbc_xinwen_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "pbc_xinwen_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": true,
+          "default_max_pages": 50,
+          "fields": {
+            "date": "url:re:(\\d{8})\\d{6,} + span.hui12 fallback",
+            "title": "a@title",
+            "url": "a@href"
+          },
+          "item_selector": "font.newslist_style > a[title][istitle] + span.hui12",
+          "module_id": "11040",
+          "pagination": "TRS module-id: index.html (page 1) → <moduleId>-<N>.html (page N), 404 on overflow",
+          "per_page": 20,
+          "scope": "新闻发布 feed at /goutongjiaoliu/113456/113469/"
+        },
+        "seed_url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/index.html",
+        "type": "scraw"
+      },
+      "description": "Catalog crawl of the People's Bank of China (人民银行) 新闻发布 archive at /goutongjiaoliu/113456/113469/ — PBC's rolling announcement stream (行长活动, 公告〔YYYY〕第N号, 央行新闻, ~8100 docs / 406 pages). Each record is one listed document with section, title, date (URL <YYYYMMDD> token; span.hui12 fallback), url, doc_type. Paginates the TRS WCM module-id pattern: index.html (page 1) → 11040-<N>.html. Default crawl = 50 pages; --all for full history.",
+      "id": 10,
+      "label": "PBC News Archive (人民银行新闻发布)",
+      "name": "pbc_xinwen_archive",
+      "url": "https://www.pbc.gov.cn/goutongjiaoliu/113456/113469/index.html"
+    },
+    {
+      "category": "网页抓取",
+      "category_label": "Web Scraw",
+      "config": {
+        "archives": [
+          {
+            "section": "外汇新闻",
+            "subsection": "外汇新闻",
+            "url": "https://www.safe.gov.cn/safe/whxw/index.html"
+          }
+        ],
+        "category": {
+          "label": "Web Scraw",
+          "name": "网页抓取"
+        },
+        "columns": [
+          {
+            "column_name": "section",
+            "column_type": "string",
+            "description": "archive section: 外汇新闻 (from seed config)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "meta:section",
+            "table_name": "safe_whxw_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "title",
+            "column_type": "string",
+            "description": "document title (from <a title=\"...\"> attribute)",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "title",
+            "source_field": "a@title",
+            "table_name": "safe_whxw_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "date",
+            "column_type": "date",
+            "description": "publish date YYYY-MM-DD (from <dd> display date; URL path /YYYY/MMDD/ fallback)",
+            "is_nullable": 1,
+            "is_primary_key": 0,
+            "semantic_type": "date",
+            "source_field": "dd",
+            "table_name": "safe_whxw_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "url",
+            "column_type": "string",
+            "description": "absolute document URL (.html)",
+            "is_nullable": 0,
+            "is_primary_key": 1,
+            "semantic_type": "url",
+            "source_field": "a@href",
+            "table_name": "safe_whxw_archive",
+            "unit": ""
+          },
+          {
+            "column_name": "doc_type",
+            "column_type": "string",
+            "description": "document format derived from URL extension: html or pdf",
+            "is_nullable": 0,
+            "is_primary_key": 0,
+            "semantic_type": "category",
+            "source_field": "url:ext",
+            "table_name": "safe_whxw_archive",
+            "unit": ""
+          }
+        ],
+        "crawl": {
+          "all_flag": true,
+          "default_max_pages": 50,
+          "fields": {
+            "date": "dd",
+            "title": "dt a@title",
+            "url": "dt a@href"
+          },
+          "item_selector": "div.list_conr li (requires dt a + dd)",
+          "pagination": "index.html (page 1) → index_N.html (page N, no offset), 404 on overflow",
+          "per_page": 20,
+          "scope": "外汇新闻 feed at /safe/whxw/"
+        },
+        "seed_url": "https://www.safe.gov.cn/safe/whxw/index.html",
+        "type": "scraw"
+      },
+      "description": "Catalog crawl of the State Administration of Foreign Exchange (国家外汇管理局) 外汇新闻 archive at /safe/whxw/ — SAFE's rolling news stream. Each record is one listed document with section, title, date (from <dd> display date; URL path /YYYY/MMDD/ fallback), url, doc_type. Paginates index.html → index_N.html (page N = index_N.html, no offset, 404 on overflow). Default crawl = 50 pages; --all for full history.",
+      "id": 11,
+      "label": "SAFE News Archive (外汇局外汇新闻)",
+      "name": "safe_whxw_archive",
+      "url": "https://www.safe.gov.cn/safe/whxw/index.html"
+    }
+  ],
+  "organizations": [
+    {
+      "code": "MEE",
+      "name_en": "Ministry of Ecology and Environment",
+      "name_zh": "生态环境部",
+      "metadata": {
+        "type": "ministry",
+        "url": "https://www.mee.gov.cn"
+      }
+    },
+    {
+      "code": "MEM",
+      "name_en": "Ministry of Emergency Management",
+      "name_zh": "应急管理部",
+      "metadata": {
+        "type": "ministry",
+        "url": "https://www.mem.gov.cn"
+      }
+    },
+    {
+      "code": "MNR",
+      "name_en": "Ministry of Natural Resources",
+      "name_zh": "自然资源部",
+      "metadata": {
+        "type": "ministry",
+        "url": "https://www.mnr.gov.cn"
+      }
+    },
+    {
+      "code": "MOA",
+      "name_en": "Ministry of Agriculture and Rural Affairs",
+      "name_zh": "农业农村部",
+      "metadata": {
+        "type": "ministry",
+        "url": "https://www.moa.gov.cn"
+      }
+    },
+    {
+      "code": "MOF",
+      "name_en": "Ministry of Finance",
+      "name_zh": "财政部",
+      "metadata": {
+        "type": "ministry",
+        "url": "https://www.mof.gov.cn"
+      }
+    },
+    {
+      "code": "MOFCOM",
+      "name_en": "Ministry of Commerce",
+      "name_zh": "商务部",
+      "metadata": {
+        "type": "ministry",
+        "url": "https://www.mofcom.gov.cn"
+      }
+    },
+    {
+      "code": "MOHURD",
+      "name_en": "Ministry of Housing and Urban-Rural Development",
+      "name_zh": "住房和城乡建设部",
+      "metadata": {
+        "type": "ministry",
+        "url": "https://www.mohurd.gov.cn"
+      }
+    },
+    {
+      "code": "MOT",
+      "name_en": "Ministry of Transport",
+      "name_zh": "交通运输部",
+      "metadata": {
+        "type": "ministry",
+        "url": "https://www.mot.gov.cn"
+      }
+    },
+    {
+      "code": "NDRC",
+      "name_en": "National Development and Reform Commission",
+      "name_zh": "国家发展和改革委员会",
+      "metadata": {
+        "type": "commission",
+        "url": "https://www.ndrc.gov.cn"
+      }
+    },
+    {
+      "code": "PBC",
+      "name_en": "People's Bank of China",
+      "name_zh": "中国人民银行",
+      "metadata": {
+        "type": "central_bank",
+        "url": "https://www.pbc.gov.cn"
+      }
+    },
+    {
+      "code": "SAFE",
+      "name_en": "State Administration of Foreign Exchange",
+      "name_zh": "国家外汇管理局",
+      "metadata": {
+        "type": "administration",
+        "url": "https://www.safe.gov.cn"
+      }
+    }
+  ]
+}

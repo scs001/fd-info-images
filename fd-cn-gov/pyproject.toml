@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fd-cn-gov"
+dynamic = ["version"]
+description = "Scrapers + datasource registry for Chinese central-government ministry open-information archives."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "cli-anything" }]
+dependencies = [
+    "scrapling[fetchers]",
+    "sqlalchemy>=2.0",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP :: Indexing/Search",
+]
+
+[project.urls]
+Homepage = "https://github.com/FindDataTechnology/fd-cn-gov"
+Repository = "https://github.com/FindDataTechnology/fd-cn-gov"
+Changelog = "https://github.com/FindDataTechnology/fd-cn-gov/releases"
+Issues = "https://github.com/FindDataTechnology/fd-cn-gov/issues"
+
+[project.scripts]
+fd-cn-gov = "fd_cn_gov.cli:main"
+
+[project.entry-points."fd_open_data_mcp.datasources"]
+fd-cn-gov = "fd_cn_gov.catalog:CATALOG"
+
+[tool.setuptools.dynamic]
+version = { attr = "fd_cn_gov.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["fd_cn_gov*"]
+
+[tool.setuptools.package-data]
+fd_cn_gov = ["registry/registry.db", "registry/registry.json"]

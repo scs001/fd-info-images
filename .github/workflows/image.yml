@@ -34,6 +34,8 @@ jobs:
       - name: Install
         run: |
           python -m pip install --upgrade pip
+          # fd-cn-gov 是 cn-gov 源运行时依赖（快照仓同级目录，随片携带）
+          pip install -e ./fd-cn-gov
           # server extras 必须装：selfcheck import 上牌入口 fd_info.server
           pip install -e ".[test,server]"
 
