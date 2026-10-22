@@ -80,3 +80,46 @@ def test_textcore_rows_normalized_to_item_id():
     agg = TextCoreSearch._aggregate(rows)
     assert len(agg) == 1
     assert len(agg[0]["chunks"]) == 2
+
+
+def test_textcore_failure_raises_not_empty():
+    """检索面挂了必须可区分：显式异常，不返回空列表冒充无命中。"""
+    import pytest
+    from fd_info.textcore_search import TextCoreUnavailable
+
+    def transport(payload, headers):
+        raise ValueError("boom")
+
+    with pytest.raises(TextCoreUnavailable):
+        TextCoreSearch("http://unused", transport=transport)("report", 5)
+
+
+def test_search_degrades_to_index_with_reason(tmp_path):
+    from fd_info.textcore_search import TextCoreUnavailable
+
+    def broken_hook(query, limit):
+        raise TextCoreUnavailable("text-core 不可用：connection refused")
+
+    store = Store(tmp_path / "i.db")
+    service = InfoService(store, MemoryBodyStore(), search_hook=broken_hook)
+    service.ingest(SourceResult("cninfo", "ok", items=(item(),), window_checked=True))
+    result = service.search_info("季度")
+    assert result["mode"] == "index"
+    assert result["count"] == 1
+    assert "connection refused" in result["degraded_reason"]
+    store.close()
+
+
+def test_degraded_empty_result_still_carries_reason(tmp_path):
+    from fd_info.textcore_search import TextCoreUnavailable
+
+    def broken_hook(query, limit):
+        raise TextCoreUnavailable("timeout")
+
+    store = Store(tmp_path / "i.db")
+    service = InfoService(store, MemoryBodyStore(), search_hook=broken_hook)
+    result = service.search_info("不存在的词")
+    assert result["count"] == 0
+    assert result["mode"] == "index"
+    assert result["degraded_reason"]
+    store.close()

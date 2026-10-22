@@ -14,6 +14,14 @@ import httpx
 PROTOCOL_VERSIONS = ("2025-06-18", "2025-03-26", "2024-11-05")
 
 
+class TextCoreUnavailable(RuntimeError):
+    """text-core 检索面不可用（连接/握手/协议/结果结构任一失败）。
+
+    显式抛出而不是返回空列表：空列表是"语义检索没命中"，与"检索面挂了"
+    是两种事实。服务层据此回落索引检索并带上原因，不冒充 text-core 空结果。
+    """
+
+
 class TextCoreSearch:
     def __init__(
         self,
@@ -30,15 +38,15 @@ class TextCoreSearch:
         self._rpc_id = 0
 
     def __call__(self, query: str, limit: int) -> list[dict[str, Any]]:
-        if self._transport is not None:
-            payload = self._transport(
-                {"name": self.tool, "arguments": {"query": query, "limit": limit}}, {}
-            )
-            return self._aggregate(_rows(payload))
         try:
+            if self._transport is not None:
+                payload = self._transport(
+                    {"name": self.tool, "arguments": {"query": query, "limit": limit}}, {}
+                )
+                return self._aggregate(_rows(payload))
             return self._aggregate(self._http_search_rows(query, limit))
-        except (httpx.HTTPError, ValueError, KeyError, TypeError):
-            return []
+        except (httpx.HTTPError, ValueError, KeyError, TypeError) as exc:
+            raise TextCoreUnavailable(f"text-core 检索失败：{exc}") from exc
 
     @staticmethod
     def _aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:

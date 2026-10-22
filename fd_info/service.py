@@ -13,6 +13,7 @@ from .body_store import BodyStore, BodyUnavailable
 from .models import InfoItem, SourceResult
 from .pipeline import BodyFetcher, IngestSummary, ingest_result
 from .storage import Store
+from .textcore_search import TextCoreUnavailable
 
 SearchHook = Callable[[str, int], list[dict[str, Any]]]
 
@@ -61,7 +62,19 @@ class InfoService:
         limit: int = 20,
     ) -> dict[str, Any]:
         if self.search_hook is not None:
-            hits = self.search_hook(query, limit)
+            try:
+                hits = self.search_hook(query, limit)
+            except TextCoreUnavailable as exc:
+                # 检索面挂了 ≠ 没有命中：回落索引检索，并把原因带回去。
+                result = self._index_search(
+                    query,
+                    sources=sources,
+                    source_types=source_types,
+                    published_after=published_after,
+                    limit=limit,
+                )
+                result["degraded_reason"] = str(exc)
+                return result
             items = []
             for hit in hits:
                 item_id = hit.get("item_id")
@@ -80,8 +93,24 @@ class InfoService:
                 items.append(row)
             return {"items": items[:limit], "count": len(items[:limit]), "mode": "text-core"}
 
-        # 索引检索：LIKE 兜底。显式 mode 让调用方知道这不是语义检索。
-        needle = f"%{query.strip()}%"
+        return self._index_search(
+            query,
+            sources=sources,
+            source_types=source_types,
+            published_after=published_after,
+            limit=limit,
+        )
+
+    def _index_search(
+        self,
+        query: str,
+        *,
+        sources: list[str] | None,
+        source_types: list[str] | None,
+        published_after: str | None,
+        limit: int,
+    ) -> dict[str, Any]:
+        """索引检索：LIKE 兜底。显式 mode 让调用方知道这不是语义检索。"""
         rows = self.store.list_since(limit=500)["items"]
         items = [
             r for r in rows
