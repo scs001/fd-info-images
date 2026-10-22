@@ -34,13 +34,27 @@ class TextCoreSearch:
             payload = self._transport(
                 {"name": self.tool, "arguments": {"query": query, "limit": limit}}, {}
             )
-            return _rows(payload)
+            return self._aggregate(_rows(payload))
         try:
-            return self._http_search(query, limit)
+            return self._aggregate(self._http_search_rows(query, limit))
         except (httpx.HTTPError, ValueError, KeyError, TypeError):
             return []
 
-    def _http_search(self, query: str, limit: int) -> list[dict[str, Any]]:
+    @staticmethod
+    def _aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """按 item_id 聚合：同一文档多 chunk 合一条（chunks 保序追加）。"""
+        merged: dict[str, dict[str, Any]] = {}
+        for r in rows:
+            iid = r.get("item_id") or ""
+            if not iid:
+                continue
+            if iid in merged:
+                merged[iid].setdefault("chunks", []).extend(r.get("chunks", []))
+            else:
+                merged[iid] = r
+        return list(merged.values())
+
+    def _http_search_rows(self, query: str, limit: int) -> list[dict[str, Any]]:
         with httpx.Client(timeout=30.0, follow_redirects=True) as client:
             session = self._initialize(client)
             self._rpc_id += 1
@@ -121,7 +135,7 @@ def _rows(payload: dict[str, Any]) -> list[dict[str, Any]]:
     structured = result.get("structuredContent")
     if isinstance(structured, dict):
         rows = structured.get("results") or structured.get("items") or []
-        return [r for r in rows if isinstance(r, dict)]
+        return [_normalize(r) for r in rows if isinstance(r, dict)]
     content = result.get("content") or []
     for block in content:
         if isinstance(block, dict) and block.get("type") == "text":
@@ -130,5 +144,35 @@ def _rows(payload: dict[str, Any]) -> list[dict[str, Any]]:
             except json.JSONDecodeError:
                 continue
             rows = data.get("results") or data.get("items") or []
-            return [r for r in rows if isinstance(r, dict)]
+            return [_normalize(r) for r in rows if isinstance(r, dict)]
     return []
+
+
+def _normalize(row: dict[str, Any]) -> dict[str, Any]:
+    """text-core chunk 行 → service 期望的命中形状。
+
+    service 的 hook 契约按条目聚合：``item_id`` 必带（由 (source, source_id)
+    派生，与 models.item_id_for 同式），同一文档的多 chunk 聚到一条
+    （chunks 列表）。离线假 hook 一直给 item_id，text-core 真行只带
+    source/source_id——2026-10-23 生产首验暴露此断层（命中全被丢弃）。
+    """
+    from .models import item_id_for
+
+    source = str(row.get("source") or "")
+    source_id = str(row.get("source_id") or "")
+    out: dict[str, Any] = dict(row)
+    if not out.get("item_id"):
+        if not (source and source_id):
+            out["item_id"] = ""
+        else:
+            out["item_id"] = item_id_for(source, source_id)
+    out.setdefault(
+        "chunks",
+        [{
+            "chunk_text": row.get("chunk_text"),
+            "char_start": row.get("char_start"),
+            "char_end": row.get("char_end"),
+            "document_id": row.get("document_id"),
+        }],
+    )
+    return out
