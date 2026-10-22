@@ -1,0 +1,27 @@
+[project]
+name = "fd-info"
+version = "0.1.0"
+description = "寻数·柏讯信息流索引：统一信息条目契约、幂等摄取、游标查询与来源健康度"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.27",
+]
+
+# MCP 入口单独挂，核心契约与存储只依赖标准库 + httpx（离线可测）。
+[project.optional-dependencies]
+server = ["fastmcp>=3.4,<4"]
+test = ["pytest>=7.4"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+fd-info = "fd_info.cli:main"
+fd-info-serve = "fd_info.server:main"
+
+[tool.setuptools.packages.find]
+include = ["fd_info*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

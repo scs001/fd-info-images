@@ -1,0 +1,52 @@
+{
+  "schema": "mcp-tool-surface/v1",
+  "server": "fd-info",
+  "entry_path": "/fd-info",
+  "product_line": "wire",
+  "hosting": ["shared-instance"],
+  "description": "柏讯信息流索引：统一信息条目契约、幂等摄取、游标查询、原文证据定位与来源健康度。只读查询；正文存 fd-text-core，本服务不持有正文也不做推送。",
+  "skills_eligible_for_packs": ["info-shock", "policy-transmission", "expectation-gap"],
+  "tool_annotations": {
+    "list_since": {"readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false},
+    "get_item": {"readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false},
+    "search_info": {"readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false},
+    "locate_evidence": {"readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false},
+    "stream_health": {"readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false}
+  },
+  "tool_groups": [
+    {
+      "group": "query",
+      "level": "commercial",
+      "tools": ["list_since", "get_item"],
+      "description": "游标查询面。list_since 按 (published_at desc, item_id desc) 键集分页（不用 OFFSET，翻页途中插入新条目不重不漏）；get_item 返回条目 + 正文定位（doc_id、body_status、原文 URL）。条目身份 item_id=sha1(source:source_id) 与内容无关，公告修订不产生新条目。"
+    },
+    {
+      "group": "search",
+      "level": "commercial",
+      "tools": ["search_info"],
+      "description": "转调 fd-text-core 混合检索并聚合到条目级，命中 chunk 可定位；text-core 失联时结构化降级（空结果带原因），不冒充无命中。"
+    },
+    {
+      "group": "evidence",
+      "level": "commercial",
+      "tools": ["locate_evidence"],
+      "description": "证据定位（doc_id + 字符区间 → 逐字片段）。区间越界与正文缺失返回结构化错误；产物面 evidence 块的 quote 复核依赖本工具口径。"
+    },
+    {
+      "group": "health",
+      "level": "commercial",
+      "tools": ["stream_health"],
+      "description": "来源健康度：每源 watermark、最近成功、延迟分位、失败计数。分析套件引用信息前必须先查本工具；lag 超阈值或非 ok 时输出须声明『信息可能不完整』（design D7）。"
+    }
+  ],
+  "naming_convention": {
+    "order": "verb_noun",
+    "applies_to": "new_tools",
+    "note": "新工具一律 `动词_名词`。既有名词序工具（list_since 除外，本就是动宾）不改名——改名会破坏已发布 pack 的引用。"
+  },
+  "registry": {"expected_tool_count": 5},
+  "output_structure": {
+    "declared": [],
+    "undeclared": ["list_since", "get_item", "search_info", "locate_evidence", "stream_health"]
+  }
+}
