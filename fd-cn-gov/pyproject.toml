@@ -12,7 +12,8 @@ license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "cli-anything" }]
 dependencies = [
-    "scrapling[fetchers]",
+    # 0.5 移除 AsyncDynamicSession 导出（browser.py 依赖）；11 部委脚本在 0.4.x 验证
+    "scrapling[fetchers]>=0.4,<0.5",
     "sqlalchemy>=2.0",
 ]
 classifiers = [
