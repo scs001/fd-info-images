@@ -343,21 +343,30 @@ class InteractionSource:
         window = FetchWindow(since, until)
         items: list[InfoItem] = []
         missing: list[str] = []
+        unsupported: list[str] = []
+        ran = 0
+        sse_failed = False
         for exchange in self.exchanges:
             if exchange == "sse":
+                ran += 1
                 got, missed = self._fetch_sse(window)
                 items.extend(got)
-                missing.extend(missed)
+                if missed:
+                    sse_failed = True
+                    missing.extend(missed)
             elif exchange == "szse":
-                missing.append(SZSE_UNAVAILABLE)
+                # 能力边界（上游 405/SPA 化），不是运行失败：不让整源变 unavailable。
+                unsupported.append(SZSE_UNAVAILABLE)
             else:
-                missing.append(f"{exchange}: 未支持的交易所")
-        if missing and not items:
-            return SourceResult(SOURCE, "unavailable", reason="; ".join(missing))
-        if missing:
+                unsupported.append(f"{exchange}: 未支持的交易所")
+        if ran == 0 or (sse_failed and not items):
             return SourceResult(
-                SOURCE, "partial", items=tuple(items), reason="部分交易所拉取失败",
-                missing=tuple(missing), window_checked=True,
+                SOURCE, "unavailable", reason="; ".join(missing or unsupported)
+            )
+        if missing or unsupported:
+            return SourceResult(
+                SOURCE, "partial", items=tuple(items), reason="部分交易所不可用或未实现",
+                missing=tuple(missing + unsupported), window_checked=True,
             )
         return SourceResult(SOURCE, "ok", items=tuple(items), window_checked=True)
 

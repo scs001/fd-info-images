@@ -367,3 +367,13 @@ def test_ministry_all_unsupported_is_unavailable():
     result = src.fetch("2026-10-20", "2026-10-22")
     assert result.status == "unavailable"
     assert "a" in result.reason and "b" in result.reason
+
+
+def test_sse_empty_window_with_szse_is_partial_not_unavailable():
+    """无新条目 + SZSE 能力边界 ≠ 整源失败（生产 failures 累计 70 的根因）。"""
+    src = make_sse_source() if "make_sse_source" in globals() else InteractionSource(
+        transport=lambda url, headers: "", clock=None, stockcodes=()
+    )
+    result = src.fetch("2026-01-01", "2026-01-02")
+    assert result.status in ("partial", "ok")
+    assert result.status != "unavailable"
