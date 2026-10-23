@@ -51,19 +51,28 @@ class MinistrySource:
         window = FetchWindow(since, until)
         items: list[InfoItem] = []
         missing: list[str] = []
+        unsupported: list[str] = []
+        ran = 0
         for name in self.scripts:
             try:
                 module = self._load(name)
+                if not hasattr(module, "crawl_archive"):
+                    # 有 MANIFEST 但没有列表抓取（详情型/接口型脚本）——是能力边界，
+                    # 不是运行失败。记为 unsupported，不让整个源变 unavailable。
+                    unsupported.append(name)
+                    continue
+                ran += 1
                 records = _crawl(module, self.max_pages)
                 items.extend(_within(records, window, name))
             except Exception as exc:  # noqa: BLE001 - 单源失败是一条数据，不是整批中断
                 missing.append(f"{name}: {exc}")
-        if missing and not items:
-            return SourceResult(SOURCE, "unavailable", reason="; ".join(missing))
-        if missing:
+        if ran == 0 and not items:
+            return SourceResult(SOURCE, "unavailable", reason="; ".join(missing or unsupported))
+        if missing or unsupported:
+            reason = "部分部委不可用或未实现列表抓取"
             return SourceResult(
-                SOURCE, "partial", items=tuple(items),
-                reason="部分部委拉取失败", missing=tuple(missing), window_checked=True,
+                SOURCE, "partial", items=tuple(items), reason=reason,
+                missing=tuple(missing + unsupported), window_checked=True,
             )
         return SourceResult(SOURCE, "ok", items=tuple(items), window_checked=True)
 

@@ -343,3 +343,27 @@ def test_sse_interaction_maps_upstream_5xx_to_unavailable(monkeypatch):
     result = InteractionSource(exchanges=("sse",)).fetch("2026-10-20", "2026-10-22")
     assert result.status == "unavailable"
     assert "503" in result.reason
+
+
+class DetailOnlyModule:
+    """有 MANIFEST、无 crawl_archive：能力边界，不是运行失败。"""
+
+    MANIFEST = FakeManifest()
+
+
+def test_ministry_unsupported_script_is_partial_not_unavailable():
+    def loader(name):
+        return FakeModule() if name == "ok" else DetailOnlyModule()
+
+    src = MinistrySource(scripts=("ok", "detail-only"), module_loader=loader)
+    result = src.fetch("2026-10-20", "2026-10-22")
+    assert result.status == "partial"
+    assert [i.title for i in result.items] == ["关于某政策的通知"]
+    assert "detail-only" in result.missing
+
+
+def test_ministry_all_unsupported_is_unavailable():
+    src = MinistrySource(scripts=("a", "b"), module_loader=lambda n: DetailOnlyModule())
+    result = src.fetch("2026-10-20", "2026-10-22")
+    assert result.status == "unavailable"
+    assert "a" in result.reason and "b" in result.reason
