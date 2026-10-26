@@ -113,3 +113,40 @@ class CninfoSource:
             )
             resp.raise_for_status()
             return resp.json()
+
+
+def fetch_body(url: str, *, download: Callable[[str], bytes] | None = None) -> str | None:
+    """公告 PDF 正文：下载 + pypdf 提取；失败返回 None（调用方标 failed）。
+
+    v2（2026-10-26）：v1 只取列表元数据、正文一律 failed（2019 条存量）；
+    巨潮公告正文即 PDF（static.cninfo.com.cn/finalpage/*.PDF），本函数补上
+    提取链路。``download`` 可注入（测试用固定字节，绝不真打网）。
+    """
+    if not url:
+        return None
+    try:
+        from pypdf import PdfReader
+    except ImportError:
+        return None
+    try:
+        data = (download or _download_pdf)(url)
+        if not data:
+            return None
+        import io
+
+        reader = PdfReader(io.BytesIO(data))
+        text = "\n".join((page.extract_text() or "") for page in reader.pages)
+        text = "\n".join(line.strip() for line in text.splitlines() if line.strip())
+        return text or None
+    except Exception:  # noqa: BLE001 — 上游千奇百怪，统一按不可取
+        return None
+
+
+def _download_pdf(url: str) -> bytes:
+    with httpx.Client(timeout=30.0, follow_redirects=True) as client:
+        resp = client.get(
+            url,
+            headers={"User-Agent": "fd-info/0.1 (+https://github.com/FindDataTechnology)"},
+        )
+        resp.raise_for_status()
+        return resp.content
