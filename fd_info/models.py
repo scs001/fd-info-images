@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 SOURCE_TYPES = ("announcement", "ministry", "interaction")
-BODY_STATUSES = ("pending", "stored", "failed")
+BODY_STATUSES = ("pending", "stored", "failed", "no_text")
 SOURCE_STATUSES = ("ok", "unavailable", "partial")
 
 _ISO = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$")

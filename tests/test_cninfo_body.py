@@ -52,3 +52,29 @@ def test_empty_pdf_returns_none():
 
 def test_blank_url_returns_none():
     assert fetch_body("") is None
+
+
+def test_detailed_classifies_no_text_layer():
+    """扫描/图片型 PDF（下载成功、零字符）→ no_text（重试无意义）。"""
+    from fd_info.fetchers.cninfo import fetch_body_detailed
+
+    body, status = fetch_body_detailed("https://example.test/a.PDF", download=lambda u: _pdf_bytes("   "))
+    assert body is None and status == "no_text"
+
+
+def test_detailed_classifies_dead_link():
+    from fd_info.fetchers.cninfo import fetch_body_detailed
+
+    def boom(u: str) -> bytes:
+        raise RuntimeError("404")
+
+    body, status = fetch_body_detailed("https://example.test/a.PDF", download=boom)
+    assert body is None and status == "failed"
+
+
+def test_detailed_classifies_stored():
+    from fd_info.fetchers.cninfo import fetch_body_detailed
+
+    body, status = fetch_body_detailed("https://example.test/a.PDF",
+                                       download=lambda u: _pdf_bytes("Scanme text"))
+    assert status == "stored" and body and "Scanme" in body

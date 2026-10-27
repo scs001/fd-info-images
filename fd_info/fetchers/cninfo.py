@@ -115,31 +115,49 @@ class CninfoSource:
             return resp.json()
 
 
+def fetch_body_detailed(url: str, *, download: Callable[[str], bytes] | None = None) -> tuple[str | None, str]:
+    """公告 PDF 正文（分类版）：返回 (正文, 状态)。
+
+    状态三分（2026-10-27 实证：静默重试掩盖两类永久失败——按最新优先的回填
+    会被它们永远占位、真正可取的老条目轮不到，必须显式分类）：
+      - ``stored`` ：提取到文本；
+      - ``no_text``：下载成功但无文本层（扫描/图片型 PDF，pypdf 零字符）——
+        重试无意义，待 OCR 能力接入；
+      - ``failed`` ：下载/解析失败（404、网络、异常）——可重试。
+    """
+    if not url:
+        return None, "failed"
+    try:
+        from pypdf import PdfReader
+    except ImportError:
+        return None, "failed"
+    try:
+        data = (download or _download_pdf)(url)
+    except Exception:  # noqa: BLE001 — 404/网络等，可重试类
+        return None, "failed"
+    if not data:
+        return None, "failed"
+    try:
+        import io
+
+        reader = PdfReader(io.BytesIO(data))
+        text = "\n".join((page.extract_text() or "") for page in reader.pages)
+        text = "\n".join(line.strip() for line in text.splitlines() if line.strip())
+    except Exception:  # noqa: BLE001 — 解析崩，可重试（换个库/版本或许能读）
+        return None, "failed"
+    return (text, "stored") if text else (None, "no_text")
+
+
 def fetch_body(url: str, *, download: Callable[[str], bytes] | None = None) -> str | None:
     """公告 PDF 正文：下载 + pypdf 提取；失败返回 None（调用方标 failed）。
 
     v2（2026-10-26）：v1 只取列表元数据、正文一律 failed（2019 条存量）；
     巨潮公告正文即 PDF（static.cninfo.com.cn/finalpage/*.PDF），本函数补上
     提取链路。``download`` 可注入（测试用固定字节，绝不真打网）。
+    需要三分类（stored/no_text/failed）时用 fetch_body_detailed。
     """
-    if not url:
-        return None
-    try:
-        from pypdf import PdfReader
-    except ImportError:
-        return None
-    try:
-        data = (download or _download_pdf)(url)
-        if not data:
-            return None
-        import io
-
-        reader = PdfReader(io.BytesIO(data))
-        text = "\n".join((page.extract_text() or "") for page in reader.pages)
-        text = "\n".join(line.strip() for line in text.splitlines() if line.strip())
-        return text or None
-    except Exception:  # noqa: BLE001 — 上游千奇百怪，统一按不可取
-        return None
+    body, _status = fetch_body_detailed(url, download=download)
+    return body
 
 
 def _download_pdf(url: str) -> bytes:

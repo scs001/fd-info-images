@@ -20,6 +20,7 @@ from .body_store import SpoolBodyStore
 from .fetchers import DEFAULT_ENABLED, SOURCES
 from .fetchers.base import day_bounds
 from .fetchers.cninfo import fetch_body as cninfo_body
+from .fetchers.cninfo import fetch_body_detailed as cninfo_body_detailed
 from .fetchers.ministry import fetch_body as ministry_body
 from .models import InfoItem
 from .service import InfoService
@@ -76,7 +77,7 @@ def cmd_backfill_bodies(args: argparse.Namespace) -> int:
     service = _service()
     store = service.store
     body_store = service.body_store
-    fetchers = {"ministry": ministry_body, "announcement": cninfo_body}
+    fetchers = {"ministry": ministry_body, "announcement": cninfo_body_detailed}
     db = store._conn
     sql = "select item_id, source, source_id, source_type, published_at, title, url, doc_id from info_items where body_status='failed'"
     params: list[str] = []
@@ -93,9 +94,15 @@ def cmd_backfill_bodies(args: argparse.Namespace) -> int:
             skipped += 1
             continue
         body = body_fetcher(url)
-        if not body:
-            failed += 1
-            continue
+        if isinstance(body, tuple):  # 详细版：分类处置
+            body, status = body
+            if not body:
+                if status == "no_text":
+                    store.mark_body(item_id, doc_id=None, body_status="no_text")
+                    skipped += 1
+                else:
+                    failed += 1
+                continue
         item = InfoItem(source=source, source_id=source_id, source_type=stype,
                         published_at=pub, title=title, url=url, doc_id=doc_id)
         new_doc = body_store.put(item, body)
