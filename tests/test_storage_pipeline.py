@@ -87,3 +87,38 @@ def test_unavailable_source_is_recorded_not_raised(store):
     summary = ingest_result(result, store, MemoryBodyStore())
     assert summary.status == "unavailable"
     assert store.health()[0]["status"] == "unavailable"
+
+
+def test_body_fetcher_receives_item_url(store):
+    """回归（2026-10-27 真缺陷）：BodyFetcher 是 url 签名；历史实现按 item 调用
+    导致摄取期正文从未成功（ministry/cninfo 均被误判为上游失败）。"""
+    calls: list[str] = []
+
+    def fetcher(url: str) -> str | None:
+        calls.append(url)
+        return "拉到的正文"
+
+    body_store = MemoryBodyStore()
+    result = SourceResult(
+        "cninfo", "ok",
+        items=(item(source_id="u1", url="https://example.test/a.PDF"),),
+        window_checked=True,
+    )
+    summary = ingest_result(result, store, body_store, body_fetcher=fetcher)
+    assert calls == ["https://example.test/a.PDF"], "fetcher 必须收到 url 字符串"
+    assert summary.body_stored == 1
+    rows = store.list_since()["items"]
+    assert rows[0]["body_status"] == "stored"
+
+
+def test_body_fetcher_skipped_when_no_url(store):
+    calls: list[str] = []
+
+    result = SourceResult(
+        "cninfo", "ok",
+        items=(item(source_id="u2"),),
+        window_checked=True,
+    )
+    summary = ingest_result(result, store, MemoryBodyStore(),
+                            body_fetcher=lambda u: calls.append(u) or "x")
+    assert calls == [] and summary.body_failed == 1

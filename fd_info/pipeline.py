@@ -14,7 +14,8 @@ from .body_store import BodyStore, BodyUnavailable
 from .models import InfoItem, SourceResult
 from .storage import Store
 
-BodyFetcher = Callable[[InfoItem], str | None]
+BodyFetcher = Callable[[str], str | None]  # 入参=条目的 url（实现均为 url 签名；
+# 摄取期只对新建/变更条目调用，见 ingest_result）
 
 
 @dataclass
@@ -62,9 +63,9 @@ def ingest_result(
             # 保持原样——不物理删除，text-core 侧文档与历史不动。撤回页通常
             # 已取不到正文，若继续走正文路径会把 doc_id 错误清成 failed。
             continue
-        if item.body is None and body_fetcher is not None:
+        if item.body is None and body_fetcher is not None and item.url:
             try:
-                body = body_fetcher(item)
+                body = body_fetcher(item.url)
             except BodyUnavailable:
                 body = None
         else:
